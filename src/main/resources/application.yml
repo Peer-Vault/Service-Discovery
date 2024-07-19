@@ -1,13 +1,17 @@
 spring:
   application:
-    name: "servicediscovery"
+    name: servicediscovery
+  config:
+    import: optional:configserver:http://localhost:8071/
 
 server:
   port: 8761
-  servlet:
-    context-path: "/service-discovery"
 
 eureka:
+  instance:
+    hostname: localhost
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    fetchRegistry: false
+    registerWithEureka: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
